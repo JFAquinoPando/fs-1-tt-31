@@ -12,6 +12,7 @@ export function App() {
 
 
     const [personajes, setPersonajes] = useState(JSON.parse(obtener("personajes")))
+    const [misPersonajes, setMisPersonajes] = useState([])
     const [character, setCharacter] = useState({
         id: 0,
         name: "",
@@ -29,15 +30,34 @@ export function App() {
             return personaje.name.includes(nombre)
         })
 
-        Swal.fire({
-            text: `Hemos encontrado a ${obtenido[0].name}`,
-            icon: "success"
-        }).then(
-            function (datos) {
-                setCharacter(obtenido[0])
-                console.log(datos);
+        if (obtenido) {
+            const encontrado = misPersonajes.find(
+                function (item) {
+                    return item.name == obtenido[0].name
+                }
+            )
+
+            if (encontrado?.id === undefined) {
+                Swal.fire({
+                    text: `Hemos encontrado a ${obtenido[0].name}`,
+                    icon: "success"
+                }).then(
+                    function (datos) {
+                        setCharacter(obtenido[0])
+                        setMisPersonajes([...misPersonajes, obtenido[0]])
+                        console.log(datos);
+                    }
+                )
+            } else {
+                Swal.fire({
+                    text: `Ya tienes a ${obtenido[0].name} en tu lista`,
+                    icon: "error"
+                })
             }
-        )
+
+        }
+
+
 
 
 
@@ -49,8 +69,14 @@ export function App() {
             <input name='personaje' />
             <button>Buscar</button>
         </form>
-        <section>
-            {character.id > 0  && <Tarjeta datos={character} />}
+        <section className="grilla">
+            {
+                misPersonajes.map(
+                    function (individuo, indice) {
+                        return <Tarjeta key={indice} datos={individuo} setMisPersonajes={setMisPersonajes} />
+                    }
+                )
+            }
         </section>
     </>
 }

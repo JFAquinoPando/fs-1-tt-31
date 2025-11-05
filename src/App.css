@@ -74,3 +74,24 @@ form{
     width: 120px;
   }
 }
+
+.personaje-encontrado:hover{
+  background-color: crimson;
+  cursor: pointer;
+}
+
+.personaje-encontrado:active{
+  background-color: darkblue;
+  cursor: pointer;
+}
+
+.grilla{
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  img{
+    width: 120px;
+    height: 120px;
+    object-fit: scale-down;
+  }
+}
