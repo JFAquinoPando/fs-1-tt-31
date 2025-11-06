@@ -17,15 +17,12 @@ export const Personajex = () => {
 
         if (encontrado) {
             setPersonaje_2(encontrado)
+            document.title = `Personaje: ${encontrado.name}`
+            setTimeout(() => { 
+                setOcultar(false) 
+            }, 3000)
         }
     }, [nombre])
-
-    useEffect(() => {
-        document.title = `Personaje: ${personaje_2.name}`
-        setTimeout(() => { 
-            setOcultar(false) 
-        }, 3000)
-    }, [personaje_2.name])
 
     return <>
         <Menu />
