@@ -4,6 +4,12 @@ import { guardar, obtener, limpiar } from "./utils/almacenamiento";
 import { obtenerDatos } from "./utils/llamadas"
 import Swal from 'sweetalert2'
 import { Tarjeta } from './componentes/Tarjeta';
+import { Menu } from './componentes/Menu';
+
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Contacto } from './paginas/Contacto';
+import { Blog } from './paginas/Blog';
+import { Personajex } from './paginas/Personajex';
 
 
 export function App() {
@@ -70,18 +76,30 @@ export function App() {
     }
 
     return <>
-        <form onSubmit={handleSubmit} role='search'>
-            <input name='personaje' />
-            <button>Buscar</button>
-        </form>
-        <section className="grilla">
-            {
-                misPersonajes.map(
-                    function (individuo, indice) {
-                        return <Tarjeta key={indice} datos={individuo} setMisPersonajes={setMisPersonajes} />
-                    }
-                )
-            }
-        </section>
+        <BrowserRouter>
+            <Switch>
+                <Route exact path="/">
+                    <Menu />
+                    <form onSubmit={handleSubmit} role='search'>
+                        <input name='personaje' />
+                        <button>Buscar</button>
+                    </form>
+                    <section className="grilla">
+                        {
+                            misPersonajes.map(
+                                function (individuo, indice) {
+                                    return <Tarjeta key={indice} datos={individuo} setMisPersonajes={setMisPersonajes} />
+                                }
+                            )
+                        }
+                    </section>
+                </Route>
+                <Route path="/contacto.html">
+                    <Contacto />
+                </Route>
+                <Route path="/blog" component={Blog} />
+                <Route path="/personaje/:nombre" component={Personajex} />
+            </Switch>
+        </BrowserRouter>
     </>
 }

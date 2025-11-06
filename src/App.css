@@ -95,3 +95,19 @@ form{
     object-fit: scale-down;
   }
 }
+
+nav{
+  display: flex;
+  gap: 36px;
+  a{
+    background-color: rgb(131, 2, 2);
+    color: whitesmoke;
+    border: 2px solid paleturquoise;
+    border-radius: 6px;
+    padding: 6px;
+    &.aqui-estoy{
+      background-color: greenyellow;
+      color: black;
+    }
+  }
+}
