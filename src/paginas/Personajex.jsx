@@ -6,35 +6,26 @@ import { useState, useEffect } from "react";
 export const Personajex = () => {
 
     const { nombre } = useParams()
-    const baseDatos = JSON.parse(obtener("personajes"))
     const [ocultar, setOcultar] = useState(true)
     const [personaje_2, setPersonaje_2] = useState({id: 0})
-    let personaje = {}
 
-    useEffect(
-        () => {
-            document.title = `Personaje: ${personaje_2.name}`
-            setTimeout(
-                () => { setOcultar(false) }, 3000
-            )
+    useEffect(() => {
+        const baseDatos = JSON.parse(obtener("personajes"))
+        const encontrado = baseDatos.find(
+            item => item.name.toLowerCase() === nombre.toLowerCase()
+        )
 
-        }, [personaje_2]
-    )
-
-    const encontrado = baseDatos.find(
-        item => item.name.toLowerCase() === nombre.toLowerCase()
-    )
-
-    console.log("encontrado", encontrado);
-
-    if (encontrado) {
-        personaje = {
-            name: encontrado.name,
-            image: encontrado.image,
-            description: encontrado.description
+        if (encontrado) {
+            setPersonaje_2(encontrado)
         }
-        setPersonaje_2(encontrado)
-    }
+    }, [nombre])
+
+    useEffect(() => {
+        document.title = `Personaje: ${personaje_2.name}`
+        setTimeout(() => { 
+            setOcultar(false) 
+        }, 3000)
+    }, [personaje_2.name])
 
     return <>
         <Menu />
