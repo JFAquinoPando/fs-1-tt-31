@@ -25,7 +25,7 @@ export const Interna = () => {
         <Menu />
         {ocultar ?
             <span> Esperando un momento... 🕛 </span> :
-            <div>
+            <div className="contenido-interna">
                 <h1>{personaje.name}</h1>
                 <div>
                     <img src={personaje.image} alt={personaje.name} style={{
@@ -35,7 +35,7 @@ export const Interna = () => {
                         {personaje.description}
                     </p>
                 </div>
-                <h3>Transformaciones</h3>
+                <h1>Transformaciones</h1>
                 <section className="grilla">
                     {
                         personaje.transformations.length > 0 ?
