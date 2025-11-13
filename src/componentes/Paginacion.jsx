@@ -5,11 +5,21 @@ export function Paginacion({ paginaActual, cantidadTotal, setPagina }) {
             {
                 elementos.map(
                     (_, idx) => {
-                        return <li onClick={() => setPagina(idx + 1)} className={`pagina-${paginaActual === (idx + 1) ? "actual" : ""}`}>{idx + 1}</li>
+                        const pageNumber = idx + 1;
+                        return (
+                            <li key={pageNumber}>
+                                <button 
+                                    onClick={() => setPagina(pageNumber)} 
+                                    className={paginaActual === pageNumber ? "pagina-actual" : ""}
+                                >
+                                    {pageNumber}
+                                </button>
+                            </li>
+                        )
                     }
                 )
             }
         </ul>
-        <div>Tenemos un total de {cantidadTotal} páginas</div>
+        {cantidadTotal > 0 && <div>Tenemos un total de {cantidadTotal} páginas</div>}
     </footer>
 }
