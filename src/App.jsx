@@ -10,29 +10,29 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Contacto } from './paginas/Contacto';
 import { Blog } from './paginas/Blog';
 import { Interna } from './paginas/Interna';
+import { Paginacion } from './componentes/Paginacion';
 
 
 export function App() {
 
     const [personajes, setPersonajes] = useState([])
     const [pagina, setPagina] = useState(1)
+    const [totalPaginas, setTotalPaginas] = useState(0)
 
     console.log("Renderizado...");
 
-
-    
-
     useEffect(
         () => {
-            fetch("https://dragonball-api.com/api/characters?page=2&limit=10").then(
+            fetch(`https://dragonball-api.com/api/characters?page=${pagina}&limit=10`).then(
                 peticion => peticion.json()
             ).then(
                 datos => {
                     console.log({datos});
                     setPersonajes(datos.items)
+                    setTotalPaginas(datos.meta.totalPages)
                 }
             )
-        }, []
+        }, [pagina]
     )
 
     return <>
@@ -50,6 +50,7 @@ export function App() {
                             )
                         }
                     </section>
+                    <Paginacion paginaActual={pagina} setPagina={setPagina} cantidadTotal={totalPaginas} />
                 </Route>
                 <Route path="/contacto.html">
                     <Contacto />
